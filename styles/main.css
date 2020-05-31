@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: futura;
+  font-style: italic;
+  color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 100px;
+  background-color: black;
+}
+
+#play {
+  font-family: futura;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 14px;
+  width: 50px;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 20%;
+  border: solid 2px;
+  border-color:#39ff14;
+  color: #39ff14;
+  background-color: fuchsia;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  border: 1px solid fuchsia;
+  width: 600px;
+  height: 600px;
+}
+
+.cell {
+  width: 6.6666%;
+  height: 6.6666%;
+  border: 1px solid fuchsia;
+  background-color: darkviolet;
+}
+
+.player {
+  background-image: url('http://cliparts.co/cliparts/kcK/boL/kcKboL5cj.jpg');
+  background-size: contain;
+}
+
+.laser {
+  background-image: url('https://wiki.computationalthinkingfoundation.org/wiki/images/d/d0/SpaceInvadersLaserDepiction.png');
+  background-size: contain;
+}
+
+/* .alien {
+
+}
+
+.boom {
+
+} */
+
+small {
+  margin: 15px;
+  /* animation: glitch 1s linear infinite; */
+  
+}
+
+/* FANCY ANIMATIONS */
+
+#play:hover, h1:hover {
+  animation: pulse 2s;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.1); }
+  60% { transform: scale(1); }
+  80% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+
+@keyframes glitch{
+  2%,64%{
+    transform: translate(2px,0) skew(0deg);
+  }
+  4%,60%{
+    transform: translate(-2px,0) skew(0deg);
+  }
+  62%{
+    transform: translate(0,0) skew(5deg); 
+  }
+}
+
+small:before,
+small:after{
+  content: attr(title);
+  position: absolute;
+  left: 0;
+}
+
+small:before{
+  animation: glitchTop 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+@keyframes glitchTop{
+  2%,64%{
+    transform: translate(2px,-2px);
+  }
+  4%,60%{
+    transform: translate(-2px,2px);
+  }
+  62%{
+    transform: translate(13px,-1px) skew(-13deg); 
+  }
+}
+
+small:after{
+  animation: glitchBotom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBotom{
+  2%,64%{
+    transform: translate(-2px,0);
+  }
+  4%,60%{
+    transform: translate(-2px,0);
+  }
+  62%{
+    transform: translate(-22px,5px) skew(21deg); 
+  }
+}
