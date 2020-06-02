@@ -7,7 +7,6 @@ function setupGame() {
   let playerPosition = 217
   let alienPosition = 0
   let alienIntervalId
-  let laserID
   let laserPosition = 0
   let direction = 1
   let points = 0
@@ -33,7 +32,7 @@ function setupGame() {
     47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
   ]
 
-  // Add aliens
+  // Add aliens 
   aliens.forEach(alien => cells[alienPosition + alien].classList.add('alien'))
 
   // Add player 
@@ -101,85 +100,55 @@ function setupGame() {
 
 
   // * MOVE LASER FUNCTION
+  // Shoot with spacebar 
 
+  document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+      console.log('Shoot laser')
+      shootLaser()
+    }
+  })
 
-  function playerShoot() {
-    let laserID
+  function shootLaser() {
     let laserPosition = playerPosition
-    // setTimeout(moveLaser, 100)
+    const laserID = setInterval(() => {
 
-    function moveLaser() {
-      // remove laser 
       cells.forEach(cell => cell.classList.remove('laser'))
-      // cells[laserPosition].classList.remove('laser')
 
-      // add laser row above
-      laserPosition -= width
-      cells[laserPosition].classList.add('laser')
-
-      // 1. if alien is hit 
-      if (cells[laserPosition].classList.contains('alien')) {
-        cells[laserPosition].classList.remove('alien')
-        cells[laserPosition].classList.remove('laser')
-        // explode on timer
-        cells[laserPosition].classList.add('explode')
-        setInterval(() => {
-          cells[laserPosition].classList.remove('explode')
-        }, 300)
-
-        // clear 
-        clearInterval(laserID)
-        // add points
-        points++
-        pointsDisplay.innerHTML = points
-      }
-
-      // 2. if laser hits end of board
+      // remove laser at end of grid
       if (laserPosition < width) {
         clearInterval(laserID)
-        setInterval(() => cells[laserPosition].classList.remove('laser'), 100)
+        cells[laserPosition].classList.remove('laser')
+        return
       }
-    }
 
-    // Execute when spacebar is hit: 
-    document.addEventListener('keyup', (event) => {
-      if (event.code === 'Space') {
-        console.log('Shoot laser')
-        setInterval(moveLaser, 100)
-      }
-    })
+      // move laser up the grid
+      laserPosition -= width
+      console.log(laserPosition)
+      cells[laserPosition].classList.add('laser')
+
+      // if laser hits alien...
+      aliens.forEach(alien => {
+        if (alien === laserPosition) {
+          clearInterval(laserID)
+          cells[laserPosition].classList.remove('alien')
+          cells[laserPosition].classList.remove('laser')
+          cells[laserPosition].classList.add('explode')
+          setTimeout(() => {
+            cells[laserPosition].classList.remove('explode')
+          }, 300)
+          points++
+          pointsDisplay.innerHTML = points
+
+        }
+      })
+    }, 100)
   }
-  document.addEventListener('keyup', playerShoot)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // Add laser 1 row above 
-
-  // set interval 
-
-
-  // function to move laser every second
-  // if hit alien -> remove alien -> create boom -> add points to score
-  // else miss alien -> laser moves to end of grid
   // function to move aliens every two seconds - left->right - end of screen->down->right->left
   // if player destroys wave of aliens -> game start again
   // if aliens reach player -> game over
-  // setInterval(function () {
-  // }, 2000)
 
 
 }
