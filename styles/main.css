@@ -49,20 +49,28 @@ body {
 .player {
   background-image: url('http://cliparts.co/cliparts/kcK/boL/kcKboL5cj.jpg');
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .laser {
   background-image: url('https://wiki.computationalthinkingfoundation.org/wiki/images/d/d0/SpaceInvadersLaserDepiction.png');
   background-size: contain;
+  /* background-color: red;
+  width: 5px; */
 }
 
-/* .alien {
-
+.alien {
+  background-image: url('https://vignette.wikia.nocookie.net/fictionalcrossover/images/a/a1/Space_invaders_alien.jpg/revision/latest/scale-to-width-down/340?cb=20180913064758');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.boom {
+.explode {
+  background-color: red;
 
-} */
+} 
 
 small {
   margin: 15px;
