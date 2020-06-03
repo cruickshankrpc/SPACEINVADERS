@@ -6,7 +6,6 @@ function setupGame() {
   const cells = []
   let playerPosition = 217
   let alienPosition = 0
-  let alienIntervalId
   let laserPosition = 0
   let direction = 1
   let points = 0
@@ -45,10 +44,10 @@ function setupGame() {
     cells.forEach(cell => cell.classList.remove('player'))
     // Change DOM state based on everything else 
     cells[playerPosition].classList.add('player')
-
-    // * add laser & aliens here at end 
-    // Aliens 
   }
+
+  // * START GAME 
+
 
   // * MOVE PLAYER 
   document.addEventListener('keydown', (event) => {
@@ -73,19 +72,58 @@ function setupGame() {
   })
 
   // * MOVE ALIENS 
-  // function moveAliens() {
-  //   for (let i = 0; i < aliens.length; i++) {
-  //     cells[aliens[i]].classList.remove('alien')
+
+  function moveAliens() {
+    // const leftBorder = aliens[0] % width === 0
+    // const rightBorder = aliens[aliens.length - 1] % width === width - 1
+    // if ((leftBorder && direction === -1) || (rightBorder && direction === 1)) {
+    //   // if reach left border OR right border move down a row 
+    //   direction = width
+    // } else if (direction === width) {
+    //   if (leftBorder) direction = 1
+    //   else direction = -1
+    // }
+
+    const aliensID = setInterval(() => {
+      // for (let i = 0; i <= aliens.length; i++) {
+      //   cells[aliens[i]].classList.remove('alien')
+      // }
+      // for (let i = 0; i <= aliens.length - 1; i++) {
+      //   cells[aliens[i]] += direction
+      // }
+      // for (let i = 0; i <= aliens.length - 1; i++) {
+      //   cells[aliens[i]].classList.add('alien')
+      // }
+
+      for (let i = 0; i < aliens.length; i++) {
+        cells[aliens[i]].classList.remove('alien')
+      }
+      for (let i = 0; i <= aliens.length; i++) {
+        cells[aliens[i]] + 1
+      }
+      for (let i = 0; i <= aliens.length; i++) {
+        cells[aliens[i]].classList.add('alien')
+      }
+
+
+
+
+    }, 300)
+
+  }
+  moveAliens()
+
+  // // GAMEOVER if reach the end of grid 
+  // for (let i = 0; i <= aliens.length - 1; i++) {
+  //   if (aliens[i] > (cells.length - (width - 1))) {
+  //     alert('GAME OVER!')
+  //     clearInterval(aliensID)
   //   }
-  //   for (let i = 0; i < aliens.length - 1; i++) {
-  //     cells[aliens[i]] += direction
-  //   }
-  //   for (let i = 0; i < aliens.length - 1; i++) {
-  //     cells[aliens[i]].classList.add('alien')
   //   }
   // }
 
-  // alienIntervalId = setInterval(moveAliens, 500)
+
+
 
 
   // 1. Move right (+1)
@@ -137,9 +175,11 @@ function setupGame() {
           setTimeout(() => {
             cells[laserPosition].classList.remove('explode')
           }, 300)
+          console.log(aliens)
+          aliens.splice(aliens.indexOf(alien), 1)
+          console.log(aliens)
           points++
           pointsDisplay.innerHTML = points
-
         }
       })
     }, 100)
