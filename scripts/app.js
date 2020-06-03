@@ -9,6 +9,7 @@ function setupGame() {
   let laserPosition = 0
   let direction = 1
   let points = 0
+  let alienDirection = 'right'
 
   // * CREATE GRID 
   // Create 225 cells 
@@ -73,46 +74,93 @@ function setupGame() {
 
   // * MOVE ALIENS 
 
+  function addAliens() {
+    for (let i = 0; i < aliens.length; i++) {
+      cells[aliens[i]].classList.add('alien')
+    }
+  }
+  function removeAliens() {
+    for (let i = 0; i < cells.length; i++) {
+      cells[i].classList.remove('alien')
+    }
+  }
+
   function moveAliens() {
-    // const leftBorder = aliens[0] % width === 0
-    // const rightBorder = aliens[aliens.length - 1] % width === width - 1
-    // if ((leftBorder && direction === -1) || (rightBorder && direction === 1)) {
-    //   // if reach left border OR right border move down a row 
-    //   direction = width
-    // } else if (direction === width) {
-    //   if (leftBorder) direction = 1
-    //   else direction = -1
-    // }
-
     const aliensID = setInterval(() => {
-      // for (let i = 0; i <= aliens.length; i++) {
-      //   cells[aliens[i]].classList.remove('alien')
-      // }
-      // for (let i = 0; i <= aliens.length - 1; i++) {
-      //   cells[aliens[i]] += direction
-      // }
-      // for (let i = 0; i <= aliens.length - 1; i++) {
-      //   cells[aliens[i]].classList.add('alien')
-      // }
+      if (alienDirection === 'right') {
+        // if you hit the right border go down a row
+        if (aliens.some(alien => alien % width === width - 1)) {
+          addAliens()
+          for (let i = 0; i < aliens.length; i++) {
+            aliens[i] += width
+          }
+          console.log(aliens)
+          removeAliens()
+          addAliens()
 
+          // then go left 
+          alienDirection = 'left'
+         
+        } else {
+          removeAliens()
+          // loop over array adding one to go right 
+          for (let i = 0; i < aliens.length; i++) {
+            aliens[i] += 1
+          }
+          // add aliens 
+          for (let i = 0; i < aliens.length; i++) {
+            addAliens()
+          }
+        }
+
+      } else if (alienDirection === 'left') {
+        if (aliens.some(alien => alien % width === 0)) {
+          addAliens()
+          for (let i = 0; i < aliens.length; i++) {
+            aliens[i] += width
+          }
+          console.log(aliens)
+          removeAliens()
+          addAliens()
+
+          // then go right 
+          alienDirection = 'right'
+          
+        } else {
+          removeAliens()
+          // loop over array adding one to go left 
+          for (let i = 0; i < aliens.length; i++) {
+            aliens[i] -= 1
+          }
+          // add aliens 
+          for (let i = 0; i < aliens.length; i++) {
+            addAliens()
+          }
+        }
+      }
+
+      // GAMEOVER 
       for (let i = 0; i < aliens.length; i++) {
-        cells[aliens[i]].classList.remove('alien')
-      }
-      for (let i = 0; i <= aliens.length; i++) {
-        cells[aliens[i]] + 1
-      }
-      for (let i = 0; i <= aliens.length; i++) {
-        cells[aliens[i]].classList.add('alien')
+        if (aliens[i] > ([209])) {
+          clearInterval(aliensID)
+          alert('GAME OVER!')
+        }
       }
 
-
-
-
-    }, 300)
-
+    }, 500)
   }
   moveAliens()
 
+
+  // const leftBorder = aliens[0] % width === 0
+  // const rightBorder = aliens[aliens.length - 1] % width === width - 1
+  // if ((leftBorder && direction === -1) || (rightBorder && direction === 1)) {
+  //   // if reach left border OR right border move down a row 
+  //   direction = width
+  // } else if (direction === width) {
+  //   if (leftBorder) direction = 1
+  //   else direction = -1
+  // }
   // // GAMEOVER if reach the end of grid 
   // for (let i = 0; i <= aliens.length - 1; i++) {
   //   if (aliens[i] > (cells.length - (width - 1))) {
