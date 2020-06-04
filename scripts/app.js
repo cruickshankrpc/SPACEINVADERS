@@ -15,7 +15,7 @@ function setupGame() {
   let points = 0
   let alienDirection = 'right'
 
-  // * CREATE GRID 
+  // ----- CREATE GRID ----- //
   // Create 225 cells 
   for (let i = 0; i < width ** 2; i++) {
     // create my cell
@@ -46,15 +46,46 @@ function setupGame() {
   livesDisplay.innerHTML = lives
 
 
-  // * RENDER GAME 
-  function renderGame() {
-    // Remove Player
+  // * RENDER
+  function renderPlayer() {
+    // PLAYER
     cells.forEach(cell => cell.classList.remove('player'))
-    // Change DOM state based on everything else 
     cells[playerPosition].classList.add('player')
   }
+  // ALIENS 
+  function addAliens() {
+    for (let i = 0; i < aliens.length; i++) {
+      cells[aliens[i]].classList.add('alien')
+    }
+  }
+  function removeAliens() {
+    for (let i = 0; i < cells.length; i++) {
+      cells[i].classList.remove('alien')
+    }
+  }
+
   // * START GAME 
 
+  // * RESTART 
+
+  function winGame() {
+    gameMessage(`You won ! You scored ${points}`, 3000)
+    //const audio = document.querySelector('audio')
+    // audio.play()
+    // setTimeout(() => {
+    //   audio.pause()
+    //   AudioContext.currentTime = 0
+    // })
+    resetGame()
+  }
+
+  function loseGame() {
+    gameMessage('Uhoh... You lose !', 3000)
+    resetGame()
+  }
+
+  // function resetGame() {
+  // }
 
   // * MOVE PLAYER 
   document.addEventListener('keydown', (event) => {
@@ -66,7 +97,7 @@ function setupGame() {
       }
       // Update position
       playerPosition += 1
-      renderGame()
+      renderPlayer()
       // Move player left
     } else if (event.key === 'ArrowLeft') {
       // 
@@ -74,30 +105,10 @@ function setupGame() {
         return
       }
       playerPosition -= 1
-      renderGame()
+      renderPlayer()
     }
   })
 
-  // * ADD/REMOVE 
-
-  // ALIENS : 
-  function addAliens() {
-    for (let i = 0; i < aliens.length; i++) {
-      cells[aliens[i]].classList.add('alien')
-    }
-  }
-  function removeAliens() {
-    for (let i = 0; i < cells.length; i++) {
-      cells[i].classList.remove('alien')
-    }
-  }
-  function addBomb() {
-
-  }
-  function removeBomb() {
-    cells.forEach(cell => cell.classList.remove('bomb'))
-
-  }
 
   // * MOVE ALIENS 
 
@@ -158,13 +169,15 @@ function setupGame() {
       for (let i = 0; i < aliens.length; i++) {
         if (aliens[i] > (cells.length - (width - 1))) {
           clearInterval(aliensID)
-          gameOver.innerHTML = 'GAME OVER'
+          loseGame()
+          resetGame()
         }
       }
       // WIN GAME 
       if (aliens.length === 0) {
         clearInterval(aliensID)
         alert('YOU WIN!')
+        resetGame()
       }
     }, 700)
   }
@@ -175,55 +188,65 @@ function setupGame() {
   function dropBomb() {
     // find random alien 
     const randomAlienPosition = aliens[Math.floor(Math.random() * aliens.length)]
-    console.log(randomAlienPosition)
     // attach bomb to alien 
     let bombPosition = randomAlienPosition
-
     // drop bomb 
     const bombID = setInterval(() => {
-      cells.forEach(cell => cell.classList.remove('bomb'))
+      //cells.forEach(cell => cell.classList.remove('bomb'))
 
       // remove bomb at end of grid
       if (bombPosition > width ** 2 - width) {
-        clearInterval(bombID)
+        console.log('hello')
+        //clearInterval(bombID)
         cells[bombPosition].classList.remove('bomb')
         return
       }
-
+      cells[bombPosition].classList.remove('bomb')
       // move bomb down the grid
       bombPosition += width
       cells[bombPosition].classList.add('bomb')
+      // if bomb hits laser... 
+      // if (cells[bombPosition].classList.contains('laser')) {
+      //   console.log('bomb')
+      //   clearInterval(bombID)
+      //   cells[bombPosition].classList.remove('bomb')
+      //   cells[bombPosition].classList.add('explode')
+      //   setTimeout(() => {
+      //     cells[bombPosition].classList.remove('explode')
+      //   }, 500)
 
+      // }
       // if bomb hits shooter...
       if (playerPosition === bombPosition) {
         clearInterval(bombID)
         cells[bombPosition].classList.remove('bomb')
-        cells[playerPosition].classList.remove('player')
+        renderPlayer()
         cells[playerPosition].classList.add('explode')
         setTimeout(() => {
           cells[bombPosition].classList.remove('explode')
         }, 800)
-        cells[playerPosition].classList.add('player')
+        renderPlayer()
         clearInterval(bombID)
 
         lives -= 1
         livesDisplay.innerHTML = lives
-
-        // GAMEOVER
-        if (lives === 0) {
-          clearInterval
-          gameOver.innerHTML = 'GAME OVER'
-
-        }
+        // gameMessage(`Uhoh ! You lost a life - ${lives} left...`, 3000)
       }
 
-    }, 100)
+    }, 200)
+
+
+    // GAMEOVER
+    if (lives === 0) {
+      clearInterval
+      gameOver.innerHTML = 'GAME OVER'
+    }
   }
 
   function randomBomb() {
     // find random time to drop bomb 
     const min = 1
-    const max = 3
+    const max = 2
     const rand = Math.floor(Math.random() * (max - min + 1) + min)
 
     dropBomb()
@@ -232,16 +255,11 @@ function setupGame() {
 
   randomBomb()
 
-
-
-
-
   // * MOVE LASER FUNCTION
   // Shoot with spacebar 
 
   document.addEventListener('keydown', (event) => {
     if (event.code === 'Space') {
-      console.log('Shoot laser')
       shootLaser()
     }
   })
@@ -262,7 +280,7 @@ function setupGame() {
       // move laser up the grid
       laserPosition -= width
       cells[laserPosition].classList.add('laser')
-
+  
       // if laser hits alien...
       aliens.forEach(alien => {
         if (alien === laserPosition) {
@@ -273,20 +291,15 @@ function setupGame() {
           setTimeout(() => {
             cells[laserPosition].classList.remove('explode')
           }, 500)
-          console.log(aliens)
           aliens.splice(aliens.indexOf(alien), 1)
-          console.log(aliens)
           points += 5
           pointsDisplay.innerHTML = points
         }
       })
     }, 100)
+    
   }
 
-
-  // function to move aliens every two seconds - left->right - end of screen->down->right->left
-  // if player destroys wave of aliens -> game start again
-  // if aliens reach player -> game over
 
 
 }

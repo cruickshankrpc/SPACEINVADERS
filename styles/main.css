@@ -37,12 +37,14 @@ body {
   flex-direction: row;
   width: 600px;
   height: 600px;
+  border: 1px solid fuchsia;
 }
+
 
 .cell {
   width: 6.6666%;
   height: 6.6666%;
-  border: 1px solid fuchsia;
+  /* border: 1px solid fuchsia; */
   /* background-color: darkviolet; */
 }
 
