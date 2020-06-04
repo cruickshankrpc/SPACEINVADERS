@@ -26,7 +26,7 @@ function setupGame() {
     grid.appendChild(div)
     cells.push(div)
     // * grid numbers: remove at end
-  //  div.innerHTML = i
+    //  div.innerHTML = i
   }
 
   // * DEFINE ALIENS 
@@ -35,11 +35,11 @@ function setupGame() {
     // 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
     // 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
 
-    19, 20, 24, 25, 
+    19, 20, 24, 25,
     33, 34, 35, 36, 38, 39, 40, 41,
-    47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 
-    62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 
-    72, 78, 79, 80, 81, 82, 83, 84, 85, 86, 
+    47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
+    62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+    72, 78, 79, 80, 81, 82, 83, 84, 85, 86,
     94, 95, 96, 97, 98, 99, 100,
     110, 111, 112, 113, 114,
     126, 127, 128,
@@ -80,27 +80,36 @@ function setupGame() {
 
   // * RESTART 
 
-  function winGame() {
-    gameMessage(`You won ! You scored ${points}`, 3000)
-    //const audio = document.querySelector('audio')
-    // audio.play()
-    // setTimeout(() => {
-    //   audio.pause()
-    //   AudioContext.currentTime = 0
-    // })
-    resetGame()
+  function endGame() {
+    alert('UH OH YOU LOSE - TRY HARDER ! (︶ω︶) ')
+    location.reload()
   }
 
-  function loseGame() {
-    gameMessage('Uhoh... You lose !', 3000)
-    resetGame()
-  }
 
-  function resetGame() {
-    document.location.href = ""
-  }
+
+  // function winGame() {
+  //   gameMessage(`You won ! You scored ${points}`, 3000)
+  //const audio = document.querySelector('audio')
+  // audio.play()
+  // setTimeout(() => {
+  //   audio.pause()
+  //   AudioContext.currentTime = 0
+  // })
+  //   resetGame()
+  // }
+
+  // function loseGame() {
+  //   gameMessage('Uhoh... You lose !', 3000)
+  //   resetGame()
+  // }
+
+  // function resetGame() {
+  //   // document.location.href = ""
+  //   location.reload()
+  // }
 
   // * MOVE PLAYER 
+
   document.addEventListener('keydown', (event) => {
     // Move player right
     if (event.key === 'ArrowRight') {
@@ -182,15 +191,13 @@ function setupGame() {
       for (let i = 0; i < aliens.length; i++) {
         if (aliens[i] > (cells.length - (width - 1))) {
           clearInterval(aliensID)
-          loseGame()
-          resetGame()
+          endGame()
         }
       }
       // WIN GAME 
       if (aliens.length === 0) {
         clearInterval(aliensID)
-        alert('YOU WIN!')
-        resetGame()
+        alert(`YOU WIN ! YOU SCORED ${points} POINTS (＾ω＾) !`)
       }
     }, 700)
   }
@@ -209,7 +216,6 @@ function setupGame() {
 
       // remove bomb at end of grid
       if (bombPosition > width ** 2 - width) {
-        console.log('hello')
         //clearInterval(bombID)
         cells[bombPosition].classList.remove('bomb')
         return
@@ -218,17 +224,7 @@ function setupGame() {
       // move bomb down the grid
       bombPosition += width
       cells[bombPosition].classList.add('bomb')
-      // if bomb hits laser... 
-      // if (cells[bombPosition].classList.contains('laser')) {
-      //   console.log('bomb')
-      //   clearInterval(bombID)
-      //   cells[bombPosition].classList.remove('bomb')
-      //   cells[bombPosition].classList.add('explode')
-      //   setTimeout(() => {
-      //     cells[bombPosition].classList.remove('explode')
-      //   }, 500)
 
-      // }
       // if bomb hits shooter...
       if (playerPosition === bombPosition) {
         clearInterval(bombID)
@@ -243,6 +239,8 @@ function setupGame() {
 
         lives -= 1
         livesDisplay.innerHTML = lives
+        livesDisplay.classList.toggle('animatepoints')
+
         // gameMessage(`Uhoh ! You lost a life - ${lives} left...`, 3000)
       }
 
@@ -251,8 +249,10 @@ function setupGame() {
 
     // GAMEOVER
     if (lives === 0) {
-      clearInterval
-      gameOver.innerHTML = 'GAME OVER'
+      clearInterval()
+      // gameOver.innerHTML = 'GAME OVER'
+      endGame()
+    
     }
   }
 
@@ -293,7 +293,7 @@ function setupGame() {
       // move laser up the grid
       laserPosition -= width
       cells[laserPosition].classList.add('laser')
-  
+
       // if laser hits alien...
       aliens.forEach(alien => {
         if (alien === laserPosition) {
@@ -310,7 +310,7 @@ function setupGame() {
         }
       })
     }, 100)
-    
+
   }
 
 
