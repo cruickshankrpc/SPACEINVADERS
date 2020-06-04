@@ -30,11 +30,11 @@ body {
   background-color: fuchsia;
 }
 
+
 .grid {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  border: 1px solid fuchsia;
   width: 600px;
   height: 600px;
 }
@@ -43,7 +43,7 @@ body {
   width: 6.6666%;
   height: 6.6666%;
   border: 1px solid fuchsia;
-  background-color: darkviolet;
+  /* background-color: darkviolet; */
 }
 
 .player {
@@ -56,26 +56,37 @@ body {
 .laser {
   background-image: url('https://wiki.computationalthinkingfoundation.org/wiki/images/d/d0/SpaceInvadersLaserDepiction.png');
   background-size: contain;
-  /* background-color: red;
-  width: 5px; */
 }
 
 .alien {
-  background-image: url('https://vignette.wikia.nocookie.net/fictionalcrossover/images/a/a1/Space_invaders_alien.jpg/revision/latest/scale-to-width-down/340?cb=20180913064758');
+  background-image: url('https://i.makeagif.com/media/8-06-2015/O7_3jU.gif');
+  /* url('https://vignette.wikia.nocookie.net/fictionalcrossover/images/a/a1/Space_invaders_alien.jpg/revision/latest/scale-to-width-down/340?cb=20180913064758'); */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .explode {
-  background-color: red;
-
+  /* background-color: red; */
+  background-image: url('https://gifimage.net/wp-content/uploads/2018/04/pixel-explosion-gif-12.gif');
+  background-size: 60px;
+  background-position: center;
 } 
+
+.bomb {
+  background-color: red;
+}
+
 
 small {
   margin: 15px;
   /* animation: glitch 1s linear infinite; */
   
+}
+
+#gameover {
+
+
 }
 
 /* FANCY ANIMATIONS */
@@ -92,6 +103,13 @@ small {
   100% { transform: scale(1); }
 }
 
+@keyframes KO {
+  0% {}
+  30% {}
+  60% {}
+  80% {}
+  100% {}
+}
 
 @keyframes glitch{
   2%,64%{

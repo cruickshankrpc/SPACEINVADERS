@@ -2,12 +2,16 @@ function setupGame() {
   const pointsDisplay = document.querySelector('#points')
   const startButton = document.querySelector('#start')
   const grid = document.querySelector('.grid')
+  const gameOver = document.querySelector('#gameover')
+  const livesDisplay = document.querySelector('#lives')
   const width = 15
   const cells = []
   let playerPosition = 217
   let alienPosition = 0
+  let bombPosition = 0
+  let randomAlienPosition = 0
   let laserPosition = 0
-  let direction = 1
+  let lives = 3
   let points = 0
   let alienDirection = 'right'
 
@@ -22,7 +26,7 @@ function setupGame() {
     grid.appendChild(div)
     cells.push(div)
     // * grid numbers: remove at end
-    div.innerHTML = i
+    // div.innerHTML = i
   }
 
   // * DEFINE ALIENS 
@@ -38,6 +42,9 @@ function setupGame() {
   // Add player 
   cells[playerPosition].classList.add('player')
 
+  // Add points
+  livesDisplay.innerHTML = lives
+
 
   // * RENDER GAME 
   function renderGame() {
@@ -46,7 +53,6 @@ function setupGame() {
     // Change DOM state based on everything else 
     cells[playerPosition].classList.add('player')
   }
-
   // * START GAME 
 
 
@@ -72,8 +78,9 @@ function setupGame() {
     }
   })
 
-  // * MOVE ALIENS 
+  // * ADD/REMOVE 
 
+  // ALIENS : 
   function addAliens() {
     for (let i = 0; i < aliens.length; i++) {
       cells[aliens[i]].classList.add('alien')
@@ -84,26 +91,36 @@ function setupGame() {
       cells[i].classList.remove('alien')
     }
   }
+  function addBomb() {
+
+  }
+  function removeBomb() {
+    cells.forEach(cell => cell.classList.remove('bomb'))
+
+  }
+
+  // * MOVE ALIENS 
 
   function moveAliens() {
     const aliensID = setInterval(() => {
+      // if going right : 
       if (alienDirection === 'right') {
-        // if you hit the right border go down a row
+        // if you hit the right border...
         if (aliens.some(alien => alien % width === width - 1)) {
           addAliens()
           for (let i = 0; i < aliens.length; i++) {
+            // go down a row...
             aliens[i] += width
           }
-          console.log(aliens)
           removeAliens()
           addAliens()
 
-          // then go left 
+          // ...then go left 
           alienDirection = 'left'
-         
+
         } else {
           removeAliens()
-          // loop over array adding one to go right 
+          // loop over array adding one to move aliens right 
           for (let i = 0; i < aliens.length; i++) {
             aliens[i] += 1
           }
@@ -119,20 +136,18 @@ function setupGame() {
           for (let i = 0; i < aliens.length; i++) {
             aliens[i] += width
           }
-          console.log(aliens)
           removeAliens()
           addAliens()
 
           // then go right 
           alienDirection = 'right'
-          
+
         } else {
           removeAliens()
           // loop over array adding one to go left 
           for (let i = 0; i < aliens.length; i++) {
             aliens[i] -= 1
           }
-          // add aliens 
           for (let i = 0; i < aliens.length; i++) {
             addAliens()
           }
@@ -141,46 +156,82 @@ function setupGame() {
 
       // GAMEOVER 
       for (let i = 0; i < aliens.length; i++) {
-        if (aliens[i] > ([209])) {
+        if (aliens[i] > (cells.length - (width - 1))) {
           clearInterval(aliensID)
-          alert('GAME OVER!')
+          gameOver.innerHTML = 'GAME OVER'
         }
       }
-
-    }, 500)
+      // WIN GAME 
+      if (aliens.length === 0) {
+        clearInterval(aliensID)
+        alert('YOU WIN!')
+      }
+    }, 700)
   }
   moveAliens()
 
+  // * RANDOMLY DROP BOMBS
 
-  // const leftBorder = aliens[0] % width === 0
-  // const rightBorder = aliens[aliens.length - 1] % width === width - 1
-  // if ((leftBorder && direction === -1) || (rightBorder && direction === 1)) {
-  //   // if reach left border OR right border move down a row 
-  //   direction = width
-  // } else if (direction === width) {
-  //   if (leftBorder) direction = 1
-  //   else direction = -1
-  // }
-  // // GAMEOVER if reach the end of grid 
-  // for (let i = 0; i <= aliens.length - 1; i++) {
-  //   if (aliens[i] > (cells.length - (width - 1))) {
-  //     alert('GAME OVER!')
-  //     clearInterval(aliensID)
-  //   }
-  //   }
-  // }
+  function dropBomb() {
+    // find random alien 
+    const randomAlienPosition = aliens[Math.floor(Math.random() * aliens.length)]
+    console.log(randomAlienPosition)
+    // attach bomb to alien 
+    let bombPosition = randomAlienPosition
 
+    // drop bomb 
+    const bombID = setInterval(() => {
+      cells.forEach(cell => cell.classList.remove('bomb'))
 
+      // remove bomb at end of grid
+      if (bombPosition > width ** 2 - width) {
+        clearInterval(bombID)
+        cells[bombPosition].classList.remove('bomb')
+        return
+      }
 
+      // move bomb down the grid
+      bombPosition += width
+      cells[bombPosition].classList.add('bomb')
 
+      // if bomb hits shooter...
+      if (playerPosition === bombPosition) {
+        clearInterval(bombID)
+        cells[bombPosition].classList.remove('bomb')
+        cells[playerPosition].classList.remove('player')
+        cells[playerPosition].classList.add('explode')
+        setTimeout(() => {
+          cells[bombPosition].classList.remove('explode')
+        }, 800)
+        cells[playerPosition].classList.add('player')
+        clearInterval(bombID)
 
-  // 1. Move right (+1)
+        lives -= 1
+        livesDisplay.innerHTML = lives
 
-  // 2. Move down when hit the edge
+        // GAMEOVER
+        if (lives === 0) {
+          clearInterval
+          gameOver.innerHTML = 'GAME OVER'
 
-  // 3. Move right to left (-1)
+        }
+      }
 
-  // 4. Move down when hit the edge 
+    }, 100)
+  }
+
+  function randomBomb() {
+    // find random time to drop bomb 
+    const min = 1
+    const max = 3
+    const rand = Math.floor(Math.random() * (max - min + 1) + min)
+
+    dropBomb()
+    setTimeout(randomBomb, rand * 1000)
+  }
+
+  randomBomb()
+
 
 
 
@@ -210,7 +261,6 @@ function setupGame() {
 
       // move laser up the grid
       laserPosition -= width
-      console.log(laserPosition)
       cells[laserPosition].classList.add('laser')
 
       // if laser hits alien...
@@ -222,11 +272,11 @@ function setupGame() {
           cells[laserPosition].classList.add('explode')
           setTimeout(() => {
             cells[laserPosition].classList.remove('explode')
-          }, 300)
+          }, 500)
           console.log(aliens)
           aliens.splice(aliens.indexOf(alien), 1)
           console.log(aliens)
-          points++
+          points += 5
           pointsDisplay.innerHTML = points
         }
       })
