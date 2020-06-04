@@ -1,6 +1,6 @@
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 
 body {
   font-family: futura;
@@ -11,25 +11,57 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 100px;
+  margin: 50px;
   background-color: black;
+}
+
+#gameover {
+  height: 100px;
+  background-image: url('https://www.thefactsite.com/wp-content/uploads/2014/11/space-invaders-we-come-in-peace.jpg');
+}
+.container {
+  display: flex;
+
+}
+
+h1 {
+  
+  font-size: 50px;
+}
+
+
+h3 {
+  padding: 0 100px;
+  color: lavender;
+}
+
+h3 span {
+  font-size: 25px;
+  color:#39ff14
 }
 
 #play {
   font-family: futura;
   font-style: italic;
   font-weight: bold;
-  font-size: 14px;
-  width: 50px;
-  padding: 5px;
+  font-size: 20px;
+  width: 80px;
+  padding: 8px;
   margin: 10px;
-  border-radius: 20%;
-  border: solid 2px;
+  border-radius: 25%;
+  border: solid 3px;
   border-color:#39ff14;
   color: #39ff14;
   background-color: fuchsia;
 }
 
+#howtoplay {
+  display:none;
+}
+
+#howtoplay:hover{
+  display:block;
+}
 
 .grid {
   display: flex;
@@ -38,8 +70,10 @@ body {
   width: 600px;
   height: 600px;
   border: 1px solid fuchsia;
+  /* animation: border-flicker 2s linear infinite; */
+  /* box-shadow: 0px 0px 50px 2px fuchsia; */
+  /* rgba(16,134,232,0.73) */
 }
-
 
 .cell {
   width: 6.6666%;
@@ -56,7 +90,8 @@ body {
 }
 
 .laser {
-  background-image: url('https://wiki.computationalthinkingfoundation.org/wiki/images/d/d0/SpaceInvadersLaserDepiction.png');
+  /* background-image: url('https://wiki.computationalthinkingfoundation.org/wiki/images/d/d0/SpaceInvadersLaserDepiction.png'); */
+  background-image: url('https://i.imgur.com/B81SdIm.png');
   background-size: contain;
 }
 
@@ -76,12 +111,17 @@ body {
 } 
 
 .bomb {
-  background-color: red;
+  /* background-color: red; */
+  /* background-image: url('https://thumbs.gfycat.com/AdorableJoyfulBaiji-size_restricted.gif'); */
+  /* background-image: url('https://thumbs.gfycat.com/ThickShamefulGonolek-small.gif'); */
+  background-image: url('https://gifimage.net/wp-content/uploads/2018/04/pixel-heart-gif-8.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 
 small {
-  margin: 15px;
+  margin: 20px;
   /* animation: glitch 1s linear infinite; */
   
 }
@@ -165,5 +205,45 @@ small:after{
   }
   62%{
     transform: translate(-22px,5px) skew(21deg); 
+  }
+}
+
+@keyframes border-flicker {
+  /* 0% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+  }
+  2% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+  }
+  4% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+  }
+  
+  8% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+  }
+  70% {
+    opacity:0.7;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+  } */
+  100% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
+box-shadow: 0px 0px 78px 4px rgba(16,134,232,0.73);
   }
 }
