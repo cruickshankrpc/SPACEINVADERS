@@ -1,6 +1,7 @@
 function setupGame() {
 
   // sounds //
+  const onload = document.getElementById('onload')
   const start = document.getElementById('start')
   const KO = document.getElementById('gameover')
   const alienHit = document.getElementById('alienHit')
@@ -87,6 +88,8 @@ function setupGame() {
   }
 
   // * START GAME 
+
+  onload.play()
 
   startButton.addEventListener('click', function () {
     start.play()

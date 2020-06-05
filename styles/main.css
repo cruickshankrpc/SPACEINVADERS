@@ -35,7 +35,9 @@ h3 {
   font-size: 25px;
   margin: 20px;
 }
-
+#onload {
+  display: none;
+}
 h3 span {
   font-size: 30px;
   color:#39ff14;
