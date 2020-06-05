@@ -4,22 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SPACE INVADERS</title>
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/main.css" href="./css/music.css">
   <script src="scripts/app.js"></script>
 </head>
+<audio id="start" src="science_fiction_machine_object_obliterate.mp3"></audio>
+<audio id="gameover" src="arcade_game_fall_tone_002.mp3"></audio>
+<audio id="alienHit" src="sfx_deathscream_human4.wav"></audio>
+<audio id="playerHit" src="leisure_retro_arcade_game_incorrect_error_tone.mp3"></audio>
+<audio id="laser" src="sfx_wpn_laser8.wav"></audio>
+<audio id="win" src="arcade_game_level_up_tone.mp3"></audio>
 <body>
   
   <h1>スペースインベーダー</h1>
   <!-- <img src='https://www.thefactsite.com/wp-content/uploads/2014/11/space-invaders-we-come-in-peace.jpg'> -->
-  <div id="gameover"></div>
-  <button id="play">PLAY</button>
+  <button id="play">START</button>
   
   <div class="container">
-
       <h3 class="points">POINTS : <span id="points"></span></h3>
-  
       <h3 class= "lives">LIVES : <span id ="lives"></span></h3>
-   
   </div>
   
   <div class="grid-container">

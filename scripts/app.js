@@ -1,8 +1,20 @@
 function setupGame() {
+
+  // sounds //
+  const start = document.getElementById('start')
+  const KO = document.getElementById('gameover')
+  const alienHit = document.getElementById('alienHit')
+  const bombdrop = document.getElementById('bombdrop')
+  const playerHit = document.getElementById('playerHit')
+  const laser = document.getElementById('laser')
+  const win = document.getElementById('win')
+
+
+
+  // selectors //
   const pointsDisplay = document.querySelector('#points')
-  const startButton = document.querySelector('#start')
+  const startButton = document.querySelector('#play')
   const grid = document.querySelector('.grid')
-  const gameOver = document.querySelector('#gameover')
   const livesDisplay = document.querySelector('#lives')
   const width = 15
   const cells = []
@@ -14,6 +26,7 @@ function setupGame() {
   let lives = 3
   let points = 0
   let alienDirection = 'right'
+
 
   // ----- CREATE GRID ----- //
   // Create 225 cells 
@@ -44,8 +57,6 @@ function setupGame() {
     110, 111, 112, 113, 114,
     126, 127, 128,
     142
-
-
   ]
 
   // Add aliens 
@@ -56,7 +67,6 @@ function setupGame() {
 
   // Add points
   livesDisplay.innerHTML = lives
-
 
   // * RENDER
   function renderPlayer() {
@@ -78,35 +88,25 @@ function setupGame() {
 
   // * START GAME 
 
-  // * RESTART 
+  startButton.addEventListener('click', function () {
+    start.play()
+    moveAliens()
+    startShoot()
+    randomBomb()
+  })
 
-  function endGame() {
-    alert('UH OH YOU LOSE - TRY HARDER ! (︶ω︶) ')
-    location.reload()
+  // prevent scroll 
+  window.onkeydown = function (e) {
+    return !(e.code === 'Space')
   }
 
+  // * END
 
-
-  // function winGame() {
-  //   gameMessage(`You won ! You scored ${points}`, 3000)
-  //const audio = document.querySelector('audio')
-  // audio.play()
-  // setTimeout(() => {
-  //   audio.pause()
-  //   AudioContext.currentTime = 0
-  // })
-  //   resetGame()
-  // }
-
-  // function loseGame() {
-  //   gameMessage('Uhoh... You lose !', 3000)
-  //   resetGame()
-  // }
-
-  // function resetGame() {
-  //   // document.location.href = ""
-  //   location.reload()
-  // }
+  function endGame() {
+    KO.play()
+    alert(`UH OH YOU LOSE - YOU SCORED ${points} POINTS ! (︶ω︶)`)
+    location.reload()
+  }
 
   // * MOVE PLAYER 
 
@@ -133,6 +133,13 @@ function setupGame() {
 
 
   // * MOVE ALIENS 
+
+
+  document.addEventListener('keyup', (e) => {
+    if (e.code === 'Space') {
+      shootLaser()
+    }
+  })
 
   function moveAliens() {
     const aliensID = setInterval(() => {
@@ -198,10 +205,11 @@ function setupGame() {
       if (aliens.length === 0) {
         clearInterval(aliensID)
         alert(`YOU WIN ! YOU SCORED ${points} POINTS (＾ω＾) !`)
+        win.play()
       }
     }, 700)
   }
-  moveAliens()
+
 
   // * RANDOMLY DROP BOMBS
 
@@ -210,6 +218,8 @@ function setupGame() {
     const randomAlienPosition = aliens[Math.floor(Math.random() * aliens.length)]
     // attach bomb to alien 
     let bombPosition = randomAlienPosition
+    // made a sound
+    bombdrop.play()
     // drop bomb 
     const bombID = setInterval(() => {
       //cells.forEach(cell => cell.classList.remove('bomb'))
@@ -231,6 +241,7 @@ function setupGame() {
         cells[bombPosition].classList.remove('bomb')
         renderPlayer()
         cells[playerPosition].classList.add('explode')
+        playerHit.play()
         setTimeout(() => {
           cells[bombPosition].classList.remove('explode')
         }, 800)
@@ -239,9 +250,10 @@ function setupGame() {
 
         lives -= 1
         livesDisplay.innerHTML = lives
+        // TODO !
         livesDisplay.classList.toggle('animatepoints')
 
-        // gameMessage(`Uhoh ! You lost a life - ${lives} left...`, 3000)
+
       }
 
     }, 200)
@@ -250,9 +262,7 @@ function setupGame() {
     // GAMEOVER
     if (lives === 0) {
       clearInterval()
-      // gameOver.innerHTML = 'GAME OVER'
       endGame()
-    
     }
   }
 
@@ -266,54 +276,55 @@ function setupGame() {
     setTimeout(randomBomb, rand * 1000)
   }
 
-  randomBomb()
+
 
   // * MOVE LASER FUNCTION
   // Shoot with spacebar 
 
-  document.addEventListener('keydown', (event) => {
-    if (event.code === 'Space') {
-      shootLaser()
-    }
-  })
-
-  function shootLaser() {
-    let laserPosition = playerPosition
-    const laserID = setInterval(() => {
-
-      cells.forEach(cell => cell.classList.remove('laser'))
-
-      // remove laser at end of grid
-      if (laserPosition < width) {
-        clearInterval(laserID)
-        cells[laserPosition].classList.remove('laser')
-        return
+  function startShoot() {
+    document.addEventListener('keyup', (e) => {
+      if (e.code === 'Space') {
+        shootLaser()
+        laser.play()
       }
+    })
 
-      // move laser up the grid
-      laserPosition -= width
-      cells[laserPosition].classList.add('laser')
+    function shootLaser() {
+      let laserPosition = playerPosition
+      const laserID = setInterval(() => {
 
-      // if laser hits alien...
-      aliens.forEach(alien => {
-        if (alien === laserPosition) {
+        cells.forEach(cell => cell.classList.remove('laser'))
+
+        // remove laser at end of grid
+        if (laserPosition < width) {
           clearInterval(laserID)
-          cells[laserPosition].classList.remove('alien')
           cells[laserPosition].classList.remove('laser')
-          cells[laserPosition].classList.add('explode')
-          setTimeout(() => {
-            cells[laserPosition].classList.remove('explode')
-          }, 500)
-          aliens.splice(aliens.indexOf(alien), 1)
-          points += 5
-          pointsDisplay.innerHTML = points
+          return
         }
-      })
-    }, 100)
 
+        // move laser up the grid
+        laserPosition -= width
+        cells[laserPosition].classList.add('laser')
+
+        // if laser hits alien...
+        aliens.forEach(alien => {
+          if (alien === laserPosition) {
+            clearInterval(laserID)
+            alienHit.play()
+            cells[laserPosition].classList.remove('alien')
+            cells[laserPosition].classList.remove('laser')
+            cells[laserPosition].classList.add('explode')
+            setTimeout(() => {
+              cells[laserPosition].classList.remove('explode')
+            }, 500)
+            aliens.splice(aliens.indexOf(alien), 1)
+            points += 5
+            pointsDisplay.innerHTML = points
+          }
+        })
+      }, 100)
+    }
   }
-
-
 
 }
 
