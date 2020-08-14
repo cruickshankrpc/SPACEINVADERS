@@ -256,7 +256,6 @@ function setupGame() {
         // TODO !
         livesDisplay.classList.toggle('animatepoints')
 
-
       }
 
     }, 200)
