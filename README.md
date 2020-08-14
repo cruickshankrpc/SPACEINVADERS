@@ -1,1 +1,1 @@
-# project-1
+# SPACE INVADERS - PROJECT 1
