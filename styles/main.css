@@ -107,15 +107,12 @@ h3 span {
   background-repeat: no-repeat;
 }
 
-small {
-  margin: 30px;
-  animation: glitch 1s linear infinite;
-  
-}
-
 a {
   text-decoration: none;
   color: white;
+  margin: 30px;
+  animation: glitch 1s linear infinite;
+  
 }
 
 /* FANCY ANIMATIONS */
