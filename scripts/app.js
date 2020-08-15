@@ -210,6 +210,7 @@ function setupGame() {
         clearInterval(aliensID)
         alert(`YOU WIN ! YOU SCORED ${points} POINTS (＾ω＾) !`)
         win.play()
+        window.location.reload(true)
       }
     }, 700)
   }
