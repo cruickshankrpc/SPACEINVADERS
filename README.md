@@ -1,18 +1,16 @@
-# ![GA Logo](./images/GALogo.png) PROJECT 1 - SPACE INVADERS
+# ![GA Logo](./media/GALogo.png) PROJECT 1 - SPACE INVADERS
 
 ## Overview 
 SPACE INVADERS was my first (solo) project completed on General Assembly's Software Engineering Immersive, and was my first attempt at using JavaScript. 
 
 I hugely enjoyed the creativity involved in this project and, once I figured out the logic, had a good time tinkering around with the design and sound effects. 
 
-[insert vid]
+![GIF](./media/SPACEINVADERSVID.png)
 
 ## Play 
 For the uninitiated, SPACE INVADERS is a classic 80s arcade game requiring the player (spaceship) to shoot down the invading aliens to score points before they reach the bottom of the screen. 
 
 Play on GitHub Pages [here](https://cruickshankrpc.github.io/project-1/).
-
-
 
 #### Controls
 - Press the START button
@@ -207,10 +205,13 @@ Alien movement logic:
 
 ## Wins 
 - Styling - overall pretty chuffed with the look and feel of the game. 
+- Got my MVP !
 - Functionality is pretty smooth - managed to iron out most of the bugs with the shooting and exploding aliens. 
 
 ## Bugs 
+**Note: Fixed these bugs post-course 💁🏻‍♀️**
 - Sometimes the game gets stuck after gameover and doesn't refresh.
+- Sometimes the game doesn't end even when you've lost all your lives !
 
 ## Learned
 - Alien movement logic - defining the borders and rendering the aliens was a little complicated. I should have liked to refactor this code time permitting. 
