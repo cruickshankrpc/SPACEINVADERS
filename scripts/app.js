@@ -3,7 +3,7 @@ function setupGame() {
   // sounds //
   const onload = document.getElementById('onload')
   const start = document.getElementById('start')
-  const KO = document.getElementById('gameover')
+  const KO = document.getElementById('gameOver')
   const alienHit = document.getElementById('alienHit')
   const bombDrop = document.getElementById('bombDrop')
   const playerHit = document.getElementById('playerHit')
@@ -89,9 +89,10 @@ function setupGame() {
 
   // * START GAME 
 
-  onload.play()
+  
 
   startButton.addEventListener('click', function () {
+    onload.play()
     start.play()
     moveAliens()
     startShoot()
@@ -225,8 +226,7 @@ function setupGame() {
     bombDrop.play()
     // drop bomb 
     const bombID = setInterval(() => {
-      //cells.forEach(cell => cell.classList.remove('bomb'))
-
+  
       // remove bomb at end of grid
       if (bombPosition > width ** 2 - width) {
         //clearInterval(bombID)
@@ -253,7 +253,7 @@ function setupGame() {
 
         lives -= 1
         livesDisplay.innerHTML = lives
-        // TODO !
+        
         livesDisplay.classList.toggle('animatepoints')
 
       }
