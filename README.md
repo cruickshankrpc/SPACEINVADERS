@@ -5,7 +5,8 @@ SPACE INVADERS was my first (solo) project completed on General Assembly's Softw
 
 I hugely enjoyed the creativity involved in this project and, once I figured out the logic, had a good time tinkering around with the design and sound effects. 
 
-![GIF](./media/SPACEINVADERSVID.png)
+<!-- ![GIF](./media/SPACEINVADERSVID.png) -->
+![GIF](./media/SPACEINVADERSGIF.gif)
 
 ## Play 
 For the uninitiated, SPACE INVADERS is a classic 80s arcade game requiring the player (spaceship) to shoot down the invading aliens to score points before they reach the bottom of the screen. 
