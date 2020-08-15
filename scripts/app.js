@@ -109,7 +109,7 @@ function setupGame() {
   function endGame() {
     KO.play()
     alert(`UH OH YOU LOSE - YOU SCORED ${points} POINTS ! (︶ω︶)`)
-    location.reload()
+    window.location.reload(true)
   }
 
   // * MOVE PLAYER 

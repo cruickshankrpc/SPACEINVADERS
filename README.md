@@ -210,8 +210,7 @@ Alien movement logic:
 - Functionality is pretty smooth - managed to iron out most of the bugs with the shooting and exploding aliens. 
 
 ## Bugs 
-- Sometimes the game gets stuck after gameover and doesn't refresh 
-- Sometimes the game doesn't end even when you've lost all your lives !
+- Sometimes the game gets stuck after gameover and doesn't refresh.
 
 ## Learned
 - Alien movement logic - defining the borders and rendering the aliens was a little complicated. I should have liked to refactor this code time permitting. 
