@@ -5,13 +5,12 @@ SPACE INVADERS was my first (solo) project completed on General Assembly's Softw
 
 I hugely enjoyed the creativity involved in this project and, once I figured out the logic, had a good time tinkering around with the design and sound effects. 
 
-<!-- ![GIF](./media/SPACEINVADERSVID.png) -->
-![GIF](./media/SPACEINVADERSGIF.gif)
+![GIF](./media/spaceinvaders.gif)
 
 ## Play 
 For the uninitiated, SPACE INVADERS is a classic 80s arcade game requiring the player (spaceship) to shoot down the invading aliens to score points before they reach the bottom of the screen. 
 
-Play on GitHub Pages [here](https://cruickshankrpc.github.io/project-1/).
+Please enjoy on GitHub Pages [here](https://cruickshankrpc.github.io/project-1/).
 
 #### Controls
 - Press the START button
@@ -19,7 +18,7 @@ Play on GitHub Pages [here](https://cruickshankrpc.github.io/project-1/).
 - Hit SPACEBAR to shoot.
 
 ## Brief 
-Build a grid-based game that can render in the browser using HTML, CSS, & vanilla Javascript in **one week**.
+Build a grid-based game that can render in the browser using HTML, CSS, & vanilla JavaScript in **one week**.
 
 ## Technologies Used 
 * HTML5
@@ -75,7 +74,7 @@ In order to ensure I had a working product by the deadline - I decided to have m
 ### DAY 1
 
 - Pseudocode MVP
-- Create grid using a for loop & flexbox:
+- Create grid using a **for loop** & **flexbox**:
 
 ```Javascript 
   // Create 225 cells 
@@ -206,7 +205,7 @@ Alien movement logic:
 
 ## Wins 
 - Styling - overall pretty chuffed with the look and feel of the game. 
-- Got my MVP !
+- Got my **MVP** !
 - Functionality is pretty smooth - managed to iron out most of the bugs with the shooting and exploding aliens. 
 
 ## Bugs 
@@ -216,8 +215,9 @@ Alien movement logic:
 
 ## Learned
 - Alien movement logic - defining the borders and rendering the aliens was a little complicated. I should have liked to refactor this code time permitting. 
-- Random bomb drops - using setInterval and setTimeout to choose a random time AND a random alien to assign the bomb.
-- SCOPE - learned first hand about local and globally accessible functions. 
+- Random bomb drops - using **setInterval** and **setTimeout** to choose a random time AND a random alien to assign the bomb.
+- **SCOPE** - learned first hand about local and globally accessible functions. 
+- Got to grips with **for loops** and other **array methods** that had been intimidating up to this point !
 
 ## Future Features 
 
