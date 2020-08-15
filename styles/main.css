@@ -110,6 +110,12 @@ h3 span {
 small {
   margin: 30px;
   animation: glitch 1s linear infinite;
+  
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }
 
 /* FANCY ANIMATIONS */

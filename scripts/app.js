@@ -5,7 +5,7 @@ function setupGame() {
   const start = document.getElementById('start')
   const KO = document.getElementById('gameover')
   const alienHit = document.getElementById('alienHit')
-  const bombdrop = document.getElementById('bombdrop')
+  const bombDrop = document.getElementById('bombDrop')
   const playerHit = document.getElementById('playerHit')
   const laser = document.getElementById('laser')
   const win = document.getElementById('win')
@@ -20,7 +20,7 @@ function setupGame() {
   const width = 15
   const cells = []
   let playerPosition = 217
-  let alienPosition = 0
+  const alienPosition = 0
   let bombPosition = 0
   let randomAlienPosition = 0
   let laserPosition = 0
@@ -222,7 +222,7 @@ function setupGame() {
     // attach bomb to alien 
     let bombPosition = randomAlienPosition
     // made a sound
-    bombdrop.play()
+    bombDrop.play()
     // drop bomb 
     const bombID = setInterval(() => {
       //cells.forEach(cell => cell.classList.remove('bomb'))
