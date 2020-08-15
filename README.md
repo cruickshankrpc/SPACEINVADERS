@@ -221,7 +221,9 @@ Alien movement logic:
 ## Future Features 
 
 - Cover page before you start the game.
-- Alerts for 'Gameover' & 'You win' as designed pop outs.
-- LEVELS that increase in difficulty with different aliens
+- Alerts for 'Gameover' & 'You win' as styled pop outs.
+- LEVELS that increase in difficulty with different aliens.
+- Sound OFF button. 
+- PAUSE game button. 
 - 'About' popup.
 - Mobile responsive !
