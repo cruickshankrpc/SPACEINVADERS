@@ -16,7 +16,7 @@ For the uninitiated, SPACE INVADERS is a classic 80s arcade game requiring the p
 Please enjoy on GitHub Pages [here](https://cruickshankrpc.github.io/project-1/).
 
 #### Controls
-- Press the START button
+- Press the START button.
 - Move the spaceship LEFT (<-) and RIGHT (->) using the arrow keys. 
 - Hit SPACEBAR to shoot.
 
