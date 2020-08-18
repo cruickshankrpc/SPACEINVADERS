@@ -56,7 +56,7 @@ In order to break down the project I used the following questions:
 
 ### MVP
 
-In order to ensure I had a working product by the deadline - I decided to have my MVP ready by the end of day 3. This would be the bare bones of the game:
+In order to ensure I had a working product by the deadline, I decided to have my MVP ready by the end of day 3. This would be the bare bones of the game:
 - A container with grids for game components 
 - Moving and shooting player spaceship
 - Aliens that explode on impact with laser & move toward the bottom of the screen
