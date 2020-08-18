@@ -1,5 +1,5 @@
-# ![GA Logo](./media/GALogo.png)\
-PROJECT 1 - SPACE INVADERS
+# ![GA Logo](./media/GALogo.png)
+# PROJECT 1 - SPACE INVADERS
 
 ## Overview 
 SPACE INVADERS was my first (solo) project completed on General Assembly's Software Engineering Immersive, and was my first attempt at using JavaScript. 
