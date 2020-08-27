@@ -14,7 +14,7 @@ I hugely enjoyed the creativity involved in this project and, once I figured out
 ## Play 
 For the uninitiated, SPACE INVADERS is a classic 80s arcade game requiring the player (spaceship) to shoot down the invading aliens to score points before they reach the bottom of the screen. 
 
-Please enjoy on GitHub Pages [here](https://cruickshankrpc.github.io/GA-Project-1-SPACEINVADERS/).
+Please enjoy on GitHub Pages [here](https://cruickshankrpc.github.io/SPACEINVADERS/).
 
 #### Controls
 - Press the START button.
